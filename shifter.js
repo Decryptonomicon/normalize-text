@@ -58,6 +58,7 @@ Shifter.prototype.decrypt = function (cipherText) {
     return normalize(clearText, cipherText);
 };
 
+
 function normalize (input, outputFormat) {
   var output = [],
       outputFormat = outputFormat.split(""),
