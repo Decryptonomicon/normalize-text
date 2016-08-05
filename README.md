@@ -1,2 +1,2 @@
-# normalize-text
-Format blocks of text like other text
+# Text Shifter
+Mostly for vigenere ciphers

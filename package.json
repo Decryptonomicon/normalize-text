@@ -1,0 +1,18 @@
+{
+  "name": "shifter",
+  "version": "1.0.0",
+  "description": "Mostly for vigenere ciphers",
+  "main": "shifter.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Decryptonomicon/shifter.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/Decryptonomicon/shifter/issues"
+  },
+  "homepage": "https://github.com/Decryptonomicon/shifter#readme"
+}
