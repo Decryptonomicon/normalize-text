@@ -5,8 +5,9 @@ for (var i = 65; i <= 90; i++) {
   charset.push(String.fromCharCode(i));
 }
 
-function Shifter (key) {
+function Shifter (key, classicVigenere) {
   this.setKey(key);
+  this.setClassicVigenere(classicVigenere);
 }
 
 Shifter.prototype.setKey = function (key) {
@@ -14,11 +15,16 @@ Shifter.prototype.setKey = function (key) {
   this._key = key.toUpperCase().replace(/[^A-Z]/g, '');
 };
 
+Shifter.prototype.setClassicVigenere = function (bool) {
+  this._classicVigenere = bool === true;
+};
+
 Shifter.prototype.encrypt = function (clearText) {
   var ctArray = clearText.toUpperCase().replace(/[^A-Z]/g, '').split(''),
       ctArrayLen = ctArray.length,
       cipherText = [],
-      keyLength = this._key.length;
+      keyLength = this._key.length,
+      classicVigenereCompat = !this._classicVigenere && 1 || 0;
 
   for (var i = 0; i < ctArrayLen; i++) {
     var clearTextCharIndex = charset.indexOf(ctArray[i]) ,
@@ -26,7 +32,7 @@ Shifter.prototype.encrypt = function (clearText) {
         keyCharIndex = charset.indexOf(this._key[keyIndex]) ;
 
     // +1 since we are doing zero based character values
-    cipherText.push(charset[(clearTextCharIndex + keyCharIndex + 1) % charset.length]);
+    cipherText.push(charset[(clearTextCharIndex + keyCharIndex + classicVigenereCompat) % charset.length]);
   }
 
   return normalize(cipherText, clearText);
@@ -37,7 +43,8 @@ Shifter.prototype.decrypt = function (cipherText) {
     var ctArray = cipherText.toUpperCase().replace(/[^A-Z]/g, '').split(''),
         ctArrayLen = ctArray.length,
         clearText = [],
-        keyLength = this._key.length;
+        keyLength = this._key.length,
+        classicVigenereCompat = !this._classicVigenere && 1 || 0;
 
     for (var i = 0; i < ctArrayLen; i++) {
       var cipherTextCharIndex = charset.indexOf(ctArray[i]) ,
@@ -45,7 +52,7 @@ Shifter.prototype.decrypt = function (cipherText) {
           keyCharIndex = charset.indexOf(this._key[keyIndex]) ;
 
       // +1 since we are doing zero based character values
-      clearText.push(charset[(charset.length + (cipherTextCharIndex - (keyCharIndex + 1))) % charset.length]);
+      clearText.push(charset[(charset.length + (cipherTextCharIndex - (keyCharIndex + classicVigenereCompat))) % charset.length]);
     }
 
     return normalize(clearText, cipherText);
