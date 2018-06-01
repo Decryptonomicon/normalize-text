@@ -24,7 +24,7 @@ Shifter.prototype.encrypt = function (clearText) {
       ctArrayLen = ctArray.length,
       cipherText = [],
       keyLength = this._key.length,
-      classicVigenereCompat = !this._classicVigenere && 1 || 0;
+      classicVigenereCompat = !this._classicVigenere && keyLength && 1 || 0;
 
   for (var i = 0; i < ctArrayLen; i++) {
     var clearTextCharIndex = charset.indexOf(ctArray[i]) ,
@@ -57,7 +57,6 @@ Shifter.prototype.decrypt = function (cipherText) {
 
     return normalize(clearText, cipherText);
 };
-
 
 function normalize (input, outputFormat) {
   var output = [],
